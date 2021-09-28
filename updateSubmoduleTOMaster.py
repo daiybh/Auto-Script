@@ -6,16 +6,13 @@ def updateToMatser_follow_submoduleFile(folder):
     if(os.path.exists(folder+'/.gitmodules')==False):
         return
     os.chdir(folder)
-    print('\n\n\n\n'+folder+'\n\n\n\n')
+    print('\n\n####################################\n\n'+folder+'\n\n')
     config= configparser.ConfigParser()
 #0 update currrent
-    cmd = 'git pull'
+    cmd = 'git pull && git reset --hard HEAD '
     print(os.popen(cmd).read())
-    config.read(folder+'/.gitmodules')
-
-    section_list = config.sections()
-    #print(section_list)
-#1   git submodule foreach git pull origin master
+    
+#1 git submodule foreach git pull origin master
     cmd = 'git submodule foreach git pull origin master'
     print(os.popen(cmd).read())
     
@@ -35,6 +32,8 @@ def updateToMatser_follow_submoduleFile(folder):
 
 
     cdict={}
+    config.read(folder+'/.gitmodules')
+    section_list = config.sections()    
     for a in section_list:
         path=config.get(a,"path")
         url=config.get(a,"url")
@@ -46,11 +45,15 @@ def updateToMatser_follow_submoduleFile(folder):
 
     for v in vlist:
         if v in cdict.keys():            
-            #3 git add v
+#3 git add v
             cmd =f'git add {v}'            
             print(os.popen(cmd).read())
-            #4 git commit -m "update submodule"            
+#4 git commit -m "update submodule"            
             cmd = f'git commit -m "update submodule {v}"'            
+            print(os.popen(cmd).read())
+#5 auto push to remote
+            cmd=f'git push'
+            print("#######################PUSH##########################")
             print(os.popen(cmd).read())
 
 
@@ -73,4 +76,12 @@ def firstDir(path):
                 updateToMatser_follow_submoduleFile(m)
                 #print(os.getcwd())
 
-firstDir(os.getcwd())
+#firstDir(os.getcwd())
+
+folderList=['localfileframeconsumer','localfileframeprovider','sharememoryhost','bmframeconsumer','bmframeprovider','blackmagicLib','venuegatewaycontroller']
+
+curPath=os.getcwd()
+for fl in folderList:
+    m = os.path.join(curPath,fl)            
+    updateToMatser_follow_submoduleFile(m)
+
