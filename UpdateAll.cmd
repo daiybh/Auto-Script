@@ -6,7 +6,9 @@ goto:start
 		cd %%f
 		git reset --hard
 		git pull 
+		git reset --hard HEAD
 		git submodule update --init --recursive
+		git submodule foreach git pull origin master
 		cd ..
 	)
 goto:eof
