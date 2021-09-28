@@ -62,7 +62,7 @@ def updateToMatser_follow_submoduleFile(folder):
 
 
 
-
+rootPath=f'E:\\WorkSpace\\simplylive.tv\\simplyserver_allin\\VenueGateway_VEN_release\\'
 
 def firstDir(path):
     list=[]
@@ -76,11 +76,11 @@ def firstDir(path):
                 updateToMatser_follow_submoduleFile(m)
                 #print(os.getcwd())
 
-#firstDir(os.getcwd())
+#firstDir(rootPath)
 
 folderList=['localfileframeconsumer','localfileframeprovider','sharememoryhost','bmframeconsumer','bmframeprovider','blackmagicLib','venuegatewaycontroller']
 
-curPath=os.getcwd()
+curPath=rootPath
 for fl in folderList:
     m = os.path.join(curPath,fl)            
     updateToMatser_follow_submoduleFile(m)
